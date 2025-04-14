@@ -4,6 +4,7 @@ import "./globals.css";
 import { useRouter } from "next/navigation";
 import { Provider } from "react-redux";
 import store from "./features/store";
+import Navbar from "./components/Navbar";
 
 export default function RootLayout({ children }) {
   const router=useRouter();
@@ -17,7 +18,7 @@ export default function RootLayout({ children }) {
       <Provider store={store}>
       <body>
         
-     
+      <Navbar/>
         {children}
       </body>
       </Provider>

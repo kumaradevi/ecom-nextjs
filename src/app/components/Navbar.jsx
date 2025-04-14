@@ -26,7 +26,7 @@ const Navbar = () => {
             </div></Link> 
             <div className='flex gap-4'>
                 <h4 className='text-lg '>{userName}</h4>
-                <div><IoMdCart size={30}/></div>
+               <Link href={'/cart'}> <div><IoMdCart size={30}/></div></Link>
             </div>
         </div>
     </div>
