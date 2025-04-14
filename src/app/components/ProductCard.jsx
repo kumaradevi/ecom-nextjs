@@ -5,9 +5,11 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setproducts } from "../features/slices/productSlice";
+import { setcarts } from "../features/slices/cartSlice";
 
 const ProductCard = () => {
   const [products, setProducts] = useState([]);
+  const [cartItem,setCartItem]=useState([]);
   const dispatch=useDispatch();
 
   const fetchProducts = async () => {
@@ -24,6 +26,14 @@ const ProductCard = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  const addCart=(id)=>{
+   console.log("clicked",id)
+   const product=products.find((p)=>p.id === id);
+   setCartItem(prev=>[...prev,product])
+   dispatch(setcarts(cartItem));
+   console.log(cartItem)
+  }
   return (
     <div className="w-[90%] mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-12">
   {products &&
@@ -51,7 +61,7 @@ const ProductCard = () => {
         </div>
 
        
-        <button className="mt-4 bg-orange-400 text-white py-2 px-4 rounded hover:bg-orange-500 transition cursor-pointer">
+        <button className="mt-4 bg-orange-400 text-white py-2 px-4 rounded hover:bg-orange-500 transition cursor-pointer" onClick={()=>addCart(product.id)}>
           Add to Cart
         </button>
       </div>
