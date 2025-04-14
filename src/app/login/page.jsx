@@ -2,12 +2,15 @@
 import React, { useState } from 'react'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { getAuth } from '../features/slices/authSlice';
 
 const Page = () => {
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
     const [error,setError]=useState("");
     const router=useRouter();
+    const dispatch=useDispatch();
 
     const handleLogin=()=>{
        const authUser=JSON.parse(localStorage.getItem("user"));
@@ -15,7 +18,8 @@ const Page = () => {
             return
         }
         if(email === authUser.email && password === authUser.password){
-            router.push('/profile')
+            dispatch(getAuth({email,password}))
+            router.push('/')
         }
        
        console.log(authUser)

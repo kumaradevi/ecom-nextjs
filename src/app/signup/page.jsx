@@ -1,6 +1,10 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { getUser } from '../features/slices/userSlice';
+import toast, { Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
     const [userName,setUserName]=useState("");
@@ -8,9 +12,20 @@ const Page = () => {
     const [password,setPassword]=useState("");
     const [error,setError]=useState("");
 
+    const dispatch=useDispatch();
+    const router=useRouter()
+
+    
+  
+
     const handleSignup=()=>{
         localStorage.setItem("user",JSON.stringify({userName,email,password}))
+        dispatch(getUser({userName,email,password}));
+        toast.success("account is created");
+        router.push('/login')
     }
+
+   
   return (
     <div className='flex justify-center items-center w-full h-[100vh] '>
        <div className='w-[600px] min-h-[200px] flex flex-col gap-4  shadow-sm rounded-md p-6'>
@@ -32,6 +47,7 @@ const Page = () => {
        </div>
        <p className='mt-3'>Already have an account? <Link href='/login'><span className='text-blue-500'>Login here</span></Link></p>
        </div>
+       <Toaster/>
     </div>
   )
 }
