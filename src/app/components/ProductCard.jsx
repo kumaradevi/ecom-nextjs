@@ -6,10 +6,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setproducts } from "../features/slices/productSlice";
 import { setcarts } from "../features/slices/cartSlice";
+import { IoHeartOutline } from "react-icons/io5";
 
 const ProductCard = () => {
   const [products, setProducts] = useState([]);
   const [cartItem,setCartItem]=useState([]);
+    const[qty,setQty]=useState(1);
+  const [like,setLike]=useState(false);
   const dispatch=useDispatch();
 
   const fetchProducts = async () => {
@@ -28,10 +31,18 @@ const ProductCard = () => {
   }, []);
 
   const addCart=(id)=>{
-   console.log("clicked",id)
+    let updatedCart=[];
    const product=products.find((p)=>p.id === id);
-   setCartItem(prev=>[...prev,product])
-   dispatch(setcarts(cartItem));
+   const existingItem=cartItem.find((ex)=>ex.id === id);
+   if (existingItem) {
+    updatedCart = cartItem.map((item) =>
+      item.id === id ? { ...item, qty: item.qty + 1 } : item
+    );
+  } else {
+    updatedCart = [...cartItem, { ...product, qty: 1 }];
+  }
+   setCartItem(updatedCart)
+   dispatch(setcarts(updatedCart));
    console.log(cartItem)
   }
   return (
@@ -42,15 +53,19 @@ const ProductCard = () => {
         key={product?.id}
         className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 flex flex-col justify-between"
       >
+          <div><IoHeartOutline size={25}/></div>
        <Link href={`/products/${product.id}`}> <div className="flex justify-center items-center h-48">
+     
           <Image
             src={product?.image}
             width={150}
             height={150}
             alt={product?.title}
+            
             className="object-contain max-h-full"
           />
         </div></Link>
+       
 
         <div className="mt-4">
           <h4 className="text-sm font-medium line-clamp-2 h-[3em] text-gray-800">

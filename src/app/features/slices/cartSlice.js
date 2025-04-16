@@ -14,6 +14,9 @@ const cartSlice=createSlice({
         setcarts:(state,action)=>{
             state.carts=action.payload;
         },
+        removeCart:(state,action)=>{
+            state.carts=state.carts.filter((item)=>item.id !== action.payload)
+        },
         setcartLoading:(state,action)=>{
             state.loading=action.payload
         },
@@ -23,7 +26,7 @@ const cartSlice=createSlice({
     }
     
 })
-export const {setcarts,setcartLoading,setcartError}=cartSlice.actions;
+export const {setcarts,setcartLoading,setcartError,removeCart}=cartSlice.actions;
 export const selectcarts=(state)=>state.cart.carts;
 export const selectcartLoading=(state)=>state.cart.loading;
 export const selectcartError=(state)=>state.cart.error;

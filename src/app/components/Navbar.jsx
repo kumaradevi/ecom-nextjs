@@ -20,7 +20,7 @@ const Navbar = () => {
     }
   },[user])
   return (
-    <div className='w-full h-[80px] bg-[#131921] text-white sticky top-0'>
+    <div className='w-full h-[80px] bg-[#131921] text-white sticky top-0 z-[9999]'>
         <div className='flex justify-between items-center w-[90%] h-full mx-auto'>
           <Link href='/'> <div className='flex gap-2'>
                <div><PiAmazonLogo  size={30}/></div>
