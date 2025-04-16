@@ -31,7 +31,7 @@ const CartItemCard = ({cartItems}) => {
         <div className="flex flex-col gap-2">
           <h3 className="text-lg font-semibold text-gray-800">{item.title}</h3>
           <p className="text-md text-gray-600">${item.price}</p>
-          <p className="text-sm text-gray-500">Qty: {item.quantity || 1}</p>
+          <p className="text-sm text-gray-500">Qty: {item.qty || 1}</p>
         </div>
         <div>
             <button onClick={()=>deleteItem(item.id)}><MdDelete size={25} className='text-red-500'/></button>
@@ -39,8 +39,9 @@ const CartItemCard = ({cartItems}) => {
       </div>
     ))
   ) : (
-    <div className="text-center text-gray-600">
-      <p>No cart items are there</p>
+    <div className="flex justify-center w-full items-center">
+      
+      <Image src={'/assets/empty_cart.png'} width={300} height={100}></Image>
     </div>
   )}
 </div>
